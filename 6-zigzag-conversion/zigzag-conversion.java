@@ -4,7 +4,7 @@ class Solution {
             return s;
         }
         StringBuilder[] rows = new StringBuilder[numRows];
-        int direction = 0;
+        boolean goingdown = false;
 
         for(int i=0; i<numRows; i++){
             rows[i] = new StringBuilder();
@@ -13,11 +13,11 @@ class Solution {
 
         for(int i = 0; i<s.length(); i++){
             rows[currentRow].append(s.charAt(i));
-            if(currentRow == numRows-1) direction = 1;
-            if(currentRow == 0) direction = 0;
+            if(currentRow == 0 || currentRow == numRows-1){
+                goingdown = !goingdown;
+            }
 
-            if(direction == 1) currentRow--;
-            if(direction == 0) currentRow++;
+            currentRow += goingdown ? 1 : -1;
         }
         StringBuilder result = new StringBuilder();
         for(int i= 0;i<numRows; i++){
